@@ -7,12 +7,9 @@
     var ncp = require('ncp').ncp;
 
     ncp.limit = 4;
-    var args = process.argv;
 
-    function init() {
+    function extractBowerComponents( min ) {
         var bowerPackageJson = __dirname + '/bower.json';
-        var min = args && args.length === 3 ? args[3] : null;
-        console.log('is min :' + min);
         fs.readFile(bowerPackageJson, (err, data) => {
             if (!err) {
                 var bowerObj = JSON.parse(data);
@@ -27,8 +24,8 @@
 
 
     function copyClientDependency(name, isMin) {
-        var clientExternalDepPath = __dirname + '/' + 'client/external';
-        var bowerComponentPath = __dirname + '/' + 'bower_components/' + name;
+        var clientExternalDepPath = __dirname + '/client/external';
+        var bowerComponentPath = __dirname + '/bower_components/' + name;
         var bowerComponentDist = bowerComponentPath + '/dist';
         fs.access(clientExternalDepPath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
             if (!err) {
@@ -71,10 +68,7 @@
     }
 
 
-
-
-
-    init();
+    module.exports = extractBowerComponents;
 
 
 })();

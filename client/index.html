@@ -20,8 +20,6 @@
         padding-top: 70px;
     }
     </style>
-
-    <script data-main="main" src="external/require.js"></script>
 </head>
 
 <body>
@@ -43,13 +41,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="services">About</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="services">Services</a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="main">main</a>
                     </li>
                 </ul>
             </div>
@@ -59,11 +57,12 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container" >
+    <div class="container" ng-controller="testController" >
+        {{5+5}}
         <ng-view></ng-view>
         <!-- /.row -->
     </div>
     <!-- /.container -->
 </body>
-
+<script data-main="main" src="external/requirejs/require.js"></script>
 </html>

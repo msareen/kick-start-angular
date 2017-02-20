@@ -21,7 +21,7 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "bower install && node initClientPackages.js"
+        "build": "bower install && node deploy/initClientPackages.js"
     },
     "author": "Manasvi Sareen (manasvi.sareen@gmail.com)",
     "license": "MIT"

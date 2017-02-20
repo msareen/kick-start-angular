@@ -2,18 +2,21 @@
 
 (function () {
     'use strict';
+
     var fs = require('fs');
+    var path = require('path');
     var _ = require('lodash');
     var ncp = require('ncp').ncp;
 
     ncp.limit = 4;
 
-    function extractBowerComponents( isMin, externalPath ) {
-        let bowerPackageJsonFile = __dirname + '/../bower.json';
+    function extractBowerComponents(isMin, externalPath) {
+        console.log('extracting bower components...');
+        let bowerPackageJsonFile = path.join(__dirname, '/../bower.json');
         fs.readFile(bowerPackageJsonFile, (err, data) => {
             if (!err) {
-                var bowerObj = JSON.parse(data);
-                for (var propertyName in bowerObj.dependencies) {
+                let bowerObj = JSON.parse(data);
+                for (let propertyName in bowerObj.dependencies) {
                     copyClientDependency(propertyName, isMin, externalPath);
                 }
             } else {
@@ -24,45 +27,27 @@
 
 
     function copyClientDependency(name, isMin, clientExternalDepPath) {
-        let bowerComponentPath = __dirname + '/../bower_components/' + name;
-        let bowerComponentDist = bowerComponentPath + '/dist';
+        let bowerComponentPath = path.join(__dirname, '/../bower_components/', name);
+        let bowerComponentDist = path.join(bowerComponentPath, '/dist');
 
         fs.access(clientExternalDepPath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
             if (!err) {
-                if (fs.existsSync(bowerComponentDist)) {
-                    fs.readdir(bowerComponentDist, (err, files) => {
-                        if (err) throw err;
-                        ncp(bowerComponentDist, clientExternalDepPath + '/' + name, (err) => {
-                            if (err) {
-                                console.error(err);
-                            }
-                        });
+                let disPath = fs.existsSync(bowerComponentDist) ? bowerComponentDist : bowerComponentPath;
+                fs.readdir(disPath, (err, files) => {
+                    console.log('copying files...');
+                    console.log(files);
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+                    ncp(disPath, path.join(clientExternalDepPath,name), (err) => {
+                        if (err) {
+                            console.error(err);
+                        }
                     });
-                } else {
-                    fs.readdir(bowerComponentPath, (err, files) => {
-                        if (err) throw err;
-                        var filesToCopy = _.filter(files, function (file) {
-                            if (isMin) {
-                                return ((file.indexOf(name) > -1) &&
-                                    (file.indexOf('min') > -1));
-                            }
-                            return ((file.indexOf(name) > -1) && (file.indexOf('.min') === -1));
-                        });
-                        filesToCopy.forEach(function (file) {
-                            var path = clientExternalDepPath + '/' + name;
-                            if(!fs.existsSync(path)) {
-                                fs.mkdirSync(path);
-                            }
-                            ncp(bowerComponentPath + '/' + file, path + '/' + file, (err) => {
-                                if (err) {
-                                    console.error(err);
-                                }
-                            });
-                        });
-                    });
-                }
+                });
             } else {
-                console.log('Create path ' + clientExternalDepPath);
+                console.error('Create path ' + clientExternalDepPath);
             }
         });
     }

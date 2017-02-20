@@ -4,6 +4,7 @@ require.config({
         "angular": "angular/angular",
         "angular-route" : "angular-route/angular-route",
         "jquery" : "jquery/jquery",
+        "domready": "domready/ready",
         "app" : "../app"
     },
     shim : {
@@ -18,8 +19,8 @@ require.config({
             deps: ['angular'],
             exports : 'app'
         }
-    }
-
+    },
+    deps : ["./app"]
 });
 
-require(["app"]);
+

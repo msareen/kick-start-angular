@@ -1,11 +1,35 @@
 define(
-    ['angular'],
+    ['angular',
+    'angular-route'],
     function (angular) {
-        var app = angular.module("webapp", ['ngRoute']);
-        app.config(function ($routeProvider) {
+
+        var app = angular.module("webapp", ["ngRoute"]);
+
+
+
+        app.config(function ($routeProvider, $locationProvider) {
             $routeProvider.when("/main", {
-                templateUrl: 'main/main.html'
+                templateUrl: '/main/main.html'
+            });
+
+            $locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
             });
         });
-        return angular.bootstrap(app);
+
+        app.controller('testController', function ($scope) {
+
+        });
+
+        angular.element(document).ready(function () {
+            angular.bootstrap(document, ['webapp']);
+        });
+
+
+
+
+
+        return app;
+
     });

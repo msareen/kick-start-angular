@@ -8,25 +8,25 @@
 
     ncp.limit = 4;
 
-    function extractBowerComponents( min ) {
-        var bowerPackageJson = __dirname + '/bower.json';
-        fs.readFile(bowerPackageJson, (err, data) => {
+    function extractBowerComponents( isMin, externalPath ) {
+        let bowerPackageJsonFile = __dirname + '/../bower.json';
+        fs.readFile(bowerPackageJsonFile, (err, data) => {
             if (!err) {
                 var bowerObj = JSON.parse(data);
                 for (var propertyName in bowerObj.dependencies) {
-                    copyClientDependency(propertyName, min)
+                    copyClientDependency(propertyName, isMin, externalPath);
                 }
             } else {
-                console.log('can\'t access path ' + clientPath);
+                console.log('can\'t access ' + bowerPackageJsonFile);
             }
         });
     }
 
 
-    function copyClientDependency(name, isMin) {
-        var clientExternalDepPath = __dirname + '/client/external';
-        var bowerComponentPath = __dirname + '/bower_components/' + name;
-        var bowerComponentDist = bowerComponentPath + '/dist';
+    function copyClientDependency(name, isMin, clientExternalDepPath) {
+        let bowerComponentPath = __dirname + '/../bower_components/' + name;
+        let bowerComponentDist = bowerComponentPath + '/dist';
+
         fs.access(clientExternalDepPath, fs.constants.R_OK | fs.constants.W_OK, (err) => {
             if (!err) {
                 if (fs.existsSync(bowerComponentDist)) {
@@ -36,7 +36,7 @@
                             if (err) {
                                 console.error(err);
                             }
-                        })
+                        });
                     });
                 } else {
                     fs.readdir(bowerComponentPath, (err, files) => {
@@ -47,7 +47,7 @@
                                     (file.indexOf('min') > -1));
                             }
                             return ((file.indexOf(name) > -1) && (file.indexOf('.min') === -1));
-                        })
+                        });
                         filesToCopy.forEach(function (file) {
                             var path = clientExternalDepPath + '/' + name;
                             if(!fs.existsSync(path)) {
@@ -57,8 +57,8 @@
                                 if (err) {
                                     console.error(err);
                                 }
-                            })
-                        })
+                            });
+                        });
                     });
                 }
             } else {
@@ -67,8 +67,6 @@
         });
     }
 
-
     module.exports = extractBowerComponents;
-
 
 })();

@@ -17,7 +17,7 @@
     "config": {
         "require": "http://requirejs.org/docs/release/2.3.2/comments/require.js",
         "requireMin": "http://requirejs.org/docs/release/2.3.2/minified/require.js",
-        "clientExternalScriptsPath" : "/client/external"
+        "clientExternalScriptsPath" : "/../client/external"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",

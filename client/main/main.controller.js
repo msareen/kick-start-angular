@@ -1,6 +1,6 @@
 define(["app"],
-      function(app) {
-         app.controller(function($scope) {
+    function (app) {
+        app.controller('MainController', function ($scope) {
 
-         });
-});
+        });
+    });

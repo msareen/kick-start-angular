@@ -1,11 +1,10 @@
 require.config({
-    baseUrl: "./external",
     paths: {
-        "angular": "angular/angular",
-        "angular-route" : "angular-route/angular-route",
-        "jquery" : "jquery/jquery",
-        "domready": "domready/ready",
-        "app" : "../app"
+        "angular": "./external/angular/angular",
+        "angular-route" : "./external/angular-route/angular-route",
+        "jquery" : "./external/jquery/jquery",
+        "domready": "./external/domready/ready",
+        "app" : "./app"
     },
     shim : {
         "angular" : {

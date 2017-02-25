@@ -9,6 +9,10 @@
         var staticPath = path.join(__dirname, '../client');
         console.log('hosting files at ' + staticPath);
         app.use('/', express.static(staticPath));
+        app.use((req,res) => {
+            console.log('redirecting...');
+            res.redirect('/');
+        });
 
         app.listen(88, function () {
             console.log('Example app listening on port 88!');
@@ -17,6 +21,6 @@
 
     module.exports = {
         run : runWebServer
-    }
+    };
 
 })();

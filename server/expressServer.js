@@ -8,14 +8,14 @@
 
         app.get('/', (req, res) => {
             res.send('Hello Landling page');
-        })
+        });
 
         let bookRouter = express.Router();
         bookRouter.route('/books')
             .get((req, res) => {
                 var book = {
                     name: 'testbook'
-                }
+                };
                 res.json(book);
             });
 

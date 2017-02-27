@@ -11,7 +11,7 @@
     "mongodb": "^2.2.24",
     "mongoose": "^4.8.4",
     "ncp": "^2.0.0",
-    "restify": "^4.3.0"
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "ncp": "^2.0.0",
@@ -20,11 +20,14 @@
   "config": {
     "require": "http://requirejs.org/docs/release/2.3.2/comments/require.js",
     "requireMin": "http://requirejs.org/docs/release/2.3.2/minified/require.js",
-    "clientExternalScriptsPath": "/../client/external"
+    "clientExternalScriptsPath": "/client/external",
+    "webServicePort" : 8000,
+    "restServicePort" : 3000
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "bower install && node deploy/initClientPackages.js"
+    "start": "gulp",
+    "build": "npm install && bower install && gulp build"
   },
   "author": "Manasvi Sareen (manasvi.sareen@gmail.com)",
   "license": "MIT"

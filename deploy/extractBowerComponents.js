@@ -5,7 +5,6 @@
 
     var fs = require('fs');
     var path = require('path');
-    var _ = require('lodash');
     var ncp = require('ncp').ncp;
 
     ncp.limit = 4;
@@ -40,14 +39,14 @@
                         console.error(err);
                         return;
                     }
-                    ncp(disPath, path.join(clientExternalDepPath,name), (err) => {
+                    ncp(disPath, path.join(clientExternalDepPath, name), (err) => {
                         if (err) {
                             console.error(err);
                         }
                     });
                 });
             } else {
-                console.error('Create path ' + clientExternalDepPath);
+                console.error('Error Create path ' + clientExternalDepPath);
             }
         });
     }

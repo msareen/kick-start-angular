@@ -3,6 +3,7 @@
     function runWebServer() {
         var express = require('express');
         var path = require('path');
+        var port = process.env.npm_package_config_webServicePort || 8000;
 
         var app = express();
 
@@ -14,8 +15,8 @@
             res.redirect('/');
         });
 
-        app.listen(88, function () {
-            console.log('Example app listening on port 88!');
+        app.listen(port, function () {
+            console.log('Example app listening on port ' + port);
         });
     }
 

@@ -2,8 +2,9 @@
 
     function runExpresServer() {
         let express = require('express');
+        let userRouter = require('./routes/user.controller.js');
         let app = express();
-        let port = process.env.port || 3000;
+        let port = process.env.npm_package_config_restServicePort || 3000;
 
 
         app.get('/', (req, res) => {
@@ -20,6 +21,7 @@
             });
 
         app.use('/api', bookRouter);
+        app.use('/api', userRouter);
 
         app.listen(port, () => {
             console.log('express server listening on port ' + port);
@@ -28,6 +30,6 @@
 
     module.exports = {
         run: runExpresServer
-    }
+    };
 
 })();
